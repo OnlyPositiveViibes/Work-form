@@ -6,8 +6,6 @@ import Companies from "../../Companies/Companies";
 
 function Addwork() {
 
-
-
     return (
 
         <Card>
@@ -21,22 +19,22 @@ function Addwork() {
                 <Form.Group className="m-2">
 
                     <Form.Select aria-label="Default select example">
-
-
                         <Services />
-
                     </Form.Select>
                 </Form.Group>
+
                 <Form.Group className="m-2">
                     <Form.Select aria-label="Default select example">
                         <Companies />
                     </Form.Select>
                 </Form.Group>
+
                 <Form.Group className="m-2">
                     <textarea name="task" rows="4" cols="50">
                         Atliktos darbo uzduotys
                     </textarea>
                 </Form.Group>
+
                 <Form.Group className="m-2">
                     <Form.Label>Nuo:</Form.Label>
                     <Form.Control type="time" />

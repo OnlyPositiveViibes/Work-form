@@ -4,14 +4,11 @@ import Service from "./Service";
 
 function Services() {
 
-    
-    
-    return(
+    return (
         <>
-         {services.map( obj => 
-             <Service key={obj.id} service={obj.service}></Service>
-         )}
-
+            {services.map(obj =>
+                <Service key={obj.id} service={obj.service}></Service>
+            )}
         </>
     )
 }
