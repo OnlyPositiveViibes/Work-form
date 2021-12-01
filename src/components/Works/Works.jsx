@@ -3,10 +3,15 @@ import { Card, Table } from "react-bootstrap"
 import Filter from "../Filter/Filter";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
+import Work from "./Work";
+import { propTypes } from "react-bootstrap/esm/Image";
 
 
-function Works() {
+function Works(props) {
     const [addWork, setAddWork] = useState(false)
+    const [works, setWorks] = useState([
+
+    ]);
 
     const addWorkHandler = () => {
         setAddWork(true)
@@ -14,10 +19,16 @@ function Works() {
     const closeWork = () => {
         setAddWork(false)
     }
+    const handleAddWork = (date) => {
+        setWorks([...works, date ])
+        props.status(true)
+        closeWork();
+    }
+    // console.log(works);
 
     return (
         <>
-            {addWork && <Addwork />}
+            {addWork && <Addwork setWorks={handleAddWork} />}
             <Filter />
             <Card>
                 <Card.Header>
@@ -35,9 +46,20 @@ function Works() {
                                 <th>Klientas:</th>
                                 <th>Suteikta paslauga:</th>
                                 <th>Aprasymas:</th>
-                                <th>Trukme:</th>
+                                <th>Baigta:</th>
+
                             </tr>
                         </thead>
+                        <tbody>
+                            {works.map( work =>
+                                <Work key={work.i} date={work.date} 
+                                company={work.company} 
+                                service={work.service} 
+                                description={work.description}
+                                startTime={work.starTime} 
+                                endTime={work.endTime} />
+                            )}
+                        </tbody>
                     </Table>
                 </Card.Body>
             </Card>

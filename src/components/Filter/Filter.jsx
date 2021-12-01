@@ -1,4 +1,4 @@
-import { Form, Table, Card } from "react-bootstrap";
+import { Form, Card } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 
 function Filter() {
@@ -24,6 +24,7 @@ function Filter() {
                             <Button variant="primary" type="submit">
                                 Taikyti filtra
                             </Button>
+                            
                         </Form.Group>
 
                     </Form>

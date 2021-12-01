@@ -4,13 +4,13 @@ const companies = [
         title:"IT profai"
     },
     {
-        code:12345,
+        code:24367,
         title:"React masters"
     },
 
     {
-        code:12345,
-        title:"Progrramers lounge"
+        code:777,
+        title:"Programers lounge"
     },
 
   
