@@ -4,7 +4,7 @@ import Filter from "../Filter/Filter";
 import { useState } from "react";
 import { Button } from "react-bootstrap";
 import Work from "./Work";
-import { propTypes } from "react-bootstrap/esm/Image";
+// import { propTypes } from "react-bootstrap/esm/Image";
 
 
 function Works(props) {
@@ -20,21 +20,30 @@ function Works(props) {
         setAddWork(false)
     }
     const handleAddWork = (date) => {
-        setWorks([...works, date ])
+        setWorks([...works, date])
         props.status(true)
         closeWork();
     }
-    // console.log(works);
+
+    const handleFilter = (search) => {
+        console.log(search)
+    }
+    
 
     return (
         <>
             {addWork && <Addwork setWorks={handleAddWork} />}
-            <Filter />
+            
             <Card>
                 <Card.Header>
 
                     {(addWork) ? <Button className="btn btn-danger" onClick={closeWork}>Atsaukti</Button> :
                         <Button className="btn btn-primary" onClick={addWorkHandler}>Prideti</Button>}
+
+                </Card.Header>
+
+                <Card.Header>
+                    <Filter setFilter={handleFilter}/>
 
                 </Card.Header>
                 <Card.Header><h3>Darbu Sarasas:</h3></Card.Header>
@@ -51,13 +60,13 @@ function Works(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            {works.map( work =>
-                                <Work key={work.i} date={work.date} 
-                                company={work.company} 
-                                service={work.service} 
-                                description={work.description}
-                                startTime={work.starTime} 
-                                endTime={work.endTime} />
+                            {works.map(work =>
+                                <Work key={work.i} date={work.date}
+                                    company={work.company}
+                                    service={work.service}
+                                    description={work.description}
+                                    startTime={work.startTime}
+                                    endTime={work.endTime} />
                             )}
                         </tbody>
                     </Table>
