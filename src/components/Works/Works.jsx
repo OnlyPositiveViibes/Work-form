@@ -10,8 +10,9 @@ import Work from "./Work";
 function Works(props) {
     const [addWork, setAddWork] = useState(false)
     const [works, setWorks] = useState([
-
     ]);
+
+    const [filteredWorks, setFilteredWorks] = useState([])
 
     const addWorkHandler = () => {
         setAddWork(true)
@@ -25,9 +26,17 @@ function Works(props) {
         closeWork();
     }
 
-    const handleFilter = (search) => {
-        console.log(search)
+    const handleFilter = (items) => {
+        
+        const filteredItems = works.filter(item => {
+            return Object.keys(items).every(filter => {
+                return items[filter] === item[filter];
+            });
+        })
+        setFilteredWorks(filteredItems)
+        console.log(filteredItems)
     }
+
     
 
     return (
@@ -60,14 +69,29 @@ function Works(props) {
                             </tr>
                         </thead>
                         <tbody>
-                            {works.map(work =>
+                                {(filteredWorks.length)? 
+                              ( filteredWorks.map((work, i) => (
+                                    <Work key={work.i} date={work.date}
+                                    company={work.company}
+                                    service={work.service}
+                                    description={work.description}
+                                    startTime={work.startTime}
+                                    endTime={work.endTime} />
+
+                               )))
+                              
+
+                            : 
+                            
+                            (works.map((work =>
                                 <Work key={work.i} date={work.date}
                                     company={work.company}
                                     service={work.service}
                                     description={work.description}
                                     startTime={work.startTime}
                                     endTime={work.endTime} />
-                            )}
+                            )))
+                        }
                         </tbody>
                     </Table>
                 </Card.Body>

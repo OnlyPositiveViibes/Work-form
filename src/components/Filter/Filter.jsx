@@ -28,7 +28,7 @@ function Filter(props) {
                 <Card.Body>
                     <Form className="d-flex" onSubmit={submitFilter}>
                         <Form.Group className="m-2 w-25">
-                            <Form.Select name="serviceSelect" onChange={handleFilter}>
+                            <Form.Select name="service" onChange={handleFilter}>
 
                                 <option selected disabled>Pasirinkite-</option>
                                 <Services />
@@ -37,7 +37,7 @@ function Filter(props) {
                         </Form.Group>
 
                         <Form.Group className="m-2 w-25">
-                            <Form.Select name="companySelect" onChange={handleFilter}>
+                            <Form.Select name="company" onChange={handleFilter}>
 
                                 <option selected disabled>-Pasirinkite-</option>
                                 <Companies />
