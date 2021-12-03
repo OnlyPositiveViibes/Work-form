@@ -69,6 +69,7 @@ function Works(props) {
                             </tr>
                         </thead>
                         <tbody>
+                            
                                 {(filteredWorks.length)? 
                               ( filteredWorks.map((work, i) => (
                                     <Work key={work.i} date={work.date}
