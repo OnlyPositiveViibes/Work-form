@@ -1,16 +1,8 @@
-import services from "../Data/services";
+import services from "../data/services";
 import Service from "./Service";
 
-
 function Services() {
-
-    return (
-        <>
-            {services.map(obj =>
-                <Service key={obj.id} service={obj.service}></Service>
-            )}
-        </>
-    )
+    return services.map(s => <Service key={s.id} value={s.id} title={s.title} />);
 }
 
 export default Services;

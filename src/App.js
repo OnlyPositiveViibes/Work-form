@@ -1,38 +1,29 @@
-import Filter from './components/Filter/Filter';
-import Header from './components/Header/Header';
-import { Card } from 'react-bootstrap';
-import './App.css';
-import Works from './components/Works/Works';
-import {useState, useEffect} from "react";
-import {Alert} from "react-bootstrap"
+import { useState, useEffect } from "react";
+import "./App.css";
+import Header from "./components/Header";
+import Works from "./components/Works";
+import { Alert } from "react-bootstrap";
 
 function App() {
+    const [message, setMessage] = useState("");
 
-  const [message, setMessage] = useState(false);
+    const setMessageHandler = status => {
+        status && setMessage("Paslauga pridėta");
+    };
 
- const setMessageHandler = (status) =>{
-   if(status) {
-     setMessage('Service added');
-   }
-  }
-
-  useEffect(() => {
-    setTimeout(() => {
-    setMessage('');
-    }, 5000);
+    useEffect(() => {
+        setTimeout(() => {
+            setMessage("");
+        }, 5000);
     }, [message]);
 
-  return (
-    <div className="App">
-
-      
-        <Header/>
-          {message && <Alert>{message}</Alert>}
-        <Works status={setMessageHandler}></Works>
-    
-
-    </div>
-  );
+    return (
+        <div className="container">
+            <Header />
+            {message && <Alert>{message}</Alert>}
+            <Works status={setMessageHandler} />
+        </div>
+    );
 }
 
 export default App;

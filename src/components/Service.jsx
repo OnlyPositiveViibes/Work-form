@@ -1,11 +1,5 @@
-
-function Service(props) {
-
-    return(
-        <>
-            <option value={props.service}> {props.service} </option>
-        </>
-    )
+function Service({ id, title }) {
+    return <option value={id}>{title}</option>;
 }
 
 export default Service;

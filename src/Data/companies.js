@@ -1,21 +1,24 @@
 const companies = [
     {
-        code:12345,
-        title:"IT profai"
+        code: 56844,
+        title: "IT profai"
     },
     {
-        code:24367,
-        title:"React masters"
+        code: 78676,
+        title: "Ūkio pradmenys"
     },
-
     {
-        code:777,
-        title:"Programers lounge"
+        code: 31245,
+        title: "Logisteta"
     },
+    {
+        code: 78564,
+        title: "Krepšio Fanai"
+    },
+    {
+        code: 31234,
+        title: "Darbščios Bitutės"
+    }
+];
 
-  
-
-
-]
-
-export default companies
+export default companies;
