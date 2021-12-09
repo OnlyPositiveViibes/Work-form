@@ -1,5 +1,6 @@
 import React, {useContext} from "react";
 import { WorkContext } from "./Works";
+import {Link} from "react-router-dom";
 
 
 
@@ -34,10 +35,10 @@ function Work({ work, erase }) {
             <td>{work.date}</td>
             <td>{work.company}</td>
             <td>{work.service}</td>
-            <td>{work.description}</td>
             <td>{diff(work.from, work.to)}</td>
             <td><a href="#/" className="btn btn-secondary" onClick={getIdUpdateHandler}>Redaguoti</a></td>
             <td><a href="#/" className="btn btn-danger" onClick={getIdHandler}>Šalinti</a></td>
+            <td><Link className={"btn btn-primary"} key={work.id} to={`work/${work.id}`}>Plačiau</Link></td>
         </tr>
     );
 }

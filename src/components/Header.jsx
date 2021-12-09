@@ -2,11 +2,11 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 
 function Header() {
     return (
-        <Navbar bg="dark" variant="dark">
+        <Navbar className="container-fluid" bg="dark" variant="dark">
             <Container>
                 <Navbar.Brand href="/">Timetable App</Navbar.Brand>
-                <Nav className="me-auto">
-                    <Nav.Link href="#/"></Nav.Link>
+                <Nav className="ml-auto">
+                    <Nav.Link href="#/" >Edvin</Nav.Link>
                 </Nav>
             </Container>
         </Navbar>

@@ -1,10 +1,19 @@
 import firebase from "./firebase";
 
-export const getAllWorks = (getWorks) => {
+const sortOptions = {
+    company_asc: {column: "company", direction:"asc"},
+    company_desc:{column: "company", direction:"desc"},
+    service_asc: {column: "service", direction:"asc"},
+    service_desc:{column: "service", direction:"desc"},
+}
+
+export const getAllWorks = (getWorks, sortBy, sortService) => {
     //gauti darbus
     firebase
         .firestore()
         .collection("times")
+        .orderBy(sortOptions[sortBy].column,sortOptions[sortBy].direction)
+        .orderBy(sortOptions[sortService].column,sortOptions[sortService].direction)
         .onSnapshot((snapShot)=>{
             const newWork = snapShot.docs.map((doc)=>({
                 id:doc.id,

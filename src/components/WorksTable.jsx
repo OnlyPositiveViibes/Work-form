@@ -1,6 +1,9 @@
 import { Card, Table } from "react-bootstrap";
 import * as services from "../services"
 import Work from "./Work";
+import {Button} from "react-bootstrap";
+// import Works from "./Works";
+
 
 const WorksTable = props => {
 
@@ -8,6 +11,15 @@ const WorksTable = props => {
             services.deleteWork(id)
 
     }
+
+
+    // const Works = props => {
+    //     const sortByDesc = (sortBy)=> {
+
+    //         services.getAllWorks(sortBy)
+    //     }
+
+    // }
     return (
         <Card.Body>
             <Table striped bordered hover>
@@ -15,11 +27,19 @@ const WorksTable = props => {
                     <tr>
                         <th>Data</th>
                         <th>Klientas</th>
-                        <th>Suteikta paslauga</th>
-                        <th>Aprašymas</th>
-                        <th>Trukmė</th>
+                        <th>Suteikta paslauga
+                        <Button className="btn btn-danger" onClick={props.SortServiceHandler}>
+                            SortByService
+                        </Button>
+                        </th>
+                        <th>Trukmė
+                        <Button className="btn btn-danger"  onClick={props.SortCompanyHandler}>
+                            SortByCompany
+                        </Button>
+                        </th>
                         <th>Keisti</th>
                         <th>Šalinti</th>
+                        <th>Plačiau</th>
                     </tr>
                 </thead>
                 <tbody>

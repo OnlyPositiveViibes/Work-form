@@ -12,6 +12,8 @@ function Works  (props)  {
     const [addWork, setAddWork] = useState(false);
     const [works, setWorks] = useState([]);
     const [searchResult, setSearchResult] = useState([]);
+    const [sortBy, setSortBy] = useState("company_desc")
+    const [sortService, setSortService] = useState("service_asc")
    
     const value = useMemo(()=> (
     {
@@ -20,7 +22,24 @@ function Works  (props)  {
         
     }), [workId])
    
+    console.log(sortBy)
+    function SortServiceHandler() {
+        if (sortService === 'service_asc') {
+            setSortService('service_desc');
+        }
+        else {
+            setSortService('service_asc');
+        }
+    }
 
+    function SortCompanyHandler() {
+        if (sortBy === 'company_desc') {
+            setSortBy('company_asc');
+        }
+        else {
+            setSortBy('company_desc');
+        }
+    }
     
 
     function addWorkHandler() {
@@ -49,12 +68,12 @@ function Works  (props)  {
             });
         });
         setSearchResult(filteredItems);
-        console.log("filteredItems", filteredItems);
+        // console.log("filteredItems", filteredItems);
     };
 
-    useEffect(()=>{
-        services.getAllWorks(setWorks)
-    }, [])
+    useEffect(() => {
+        services.getAllWorks(works => setWorks(works), sortBy,sortService);
+    }, [sortBy, sortService])
 
     // console.log(workId)
 
@@ -84,7 +103,7 @@ function Works  (props)  {
                 </Card.Header>
                
                     <WorkContext.Provider value={value}>
-                <WorksTable data={searchResult.length ?  searchResult : works} />
+                <WorksTable SortCompanyHandler={SortCompanyHandler} SortServiceHandler={SortServiceHandler} data={searchResult.length ?  searchResult : works} />
                 </WorkContext.Provider>
 
                
