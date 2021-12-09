@@ -72,7 +72,7 @@ function Works  (props)  {
     };
 
     useEffect(() => {
-        services.getAllWorks(works => setWorks(works), sortBy,sortService);
+        services.getAllWorks(setWorks, sortBy,sortService);
     }, [sortBy, sortService])
 
     // console.log(workId)
