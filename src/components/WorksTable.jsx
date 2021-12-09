@@ -26,16 +26,18 @@ const WorksTable = props => {
                 <thead>
                     <tr>
                         <th>Data</th>
-                        <th>Klientas</th>
+                        <th>Klientas 
+                        <Button className="btn btn-danger"  onClick={props.SortCompanyHandler}>
+                            SortByCompany
+                        </Button>
+                        </th>
                         <th>Suteikta paslauga
                         <Button className="btn btn-danger" onClick={props.SortServiceHandler}>
                             SortByService
                         </Button>
                         </th>
                         <th>Trukmė
-                        <Button className="btn btn-danger"  onClick={props.SortCompanyHandler}>
-                            SortByCompany
-                        </Button>
+                        
                         </th>
                         <th>Keisti</th>
                         <th>Šalinti</th>
