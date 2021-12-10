@@ -14,7 +14,7 @@ function Works  (props)  {
     const [searchResult, setSearchResult] = useState([]);
     const [sortBy, setSortBy] = useState("company_desc")
     const [sortService, setSortService] = useState("service_asc")
-    const [sortDate, setSortDate] = useState("date_asc")
+    
    
     const value = useMemo(()=> (
     {
@@ -41,14 +41,7 @@ function Works  (props)  {
             setSortBy('company_desc');
         }
     }
-    // function SortDateHandler() {
-    //     if (sortDate === 'date_desc') {
-    //         setSortdate('date_asc');
-    //     }
-    //     else {
-    //         setSortdate('date_desc');
-    //     }
-    // }
+    
     
 
     function addWorkHandler() {
