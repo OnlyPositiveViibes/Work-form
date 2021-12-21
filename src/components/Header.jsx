@@ -1,13 +1,15 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
+import User from "./User";
 
 function Header() {
     return (
-        <Navbar className="container-fluid" bg="dark" variant="dark">
+        <Navbar bg="dark" variant="dark">
             <Container>
                 <Navbar.Brand href="/">Timetable App</Navbar.Brand>
-                <Nav className="ml-auto">
-                    <Nav.Link href="#/" >Edvin</Nav.Link>
+                <Nav className="me-auto">
+                    <Nav.Link href="#/"></Nav.Link>
                 </Nav>
+                <User />
             </Container>
         </Navbar>
     );

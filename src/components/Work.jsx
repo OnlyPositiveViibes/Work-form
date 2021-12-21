@@ -1,13 +1,10 @@
-import React, {useContext} from "react";
+import React, { useContext } from "react";
 import { WorkContext } from "./Works";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
+function Work({ work, deleteW }) {
+    const { setWorkId } = useContext(WorkContext);
 
-
-
-function Work({ work, erase }) {
-
-    const {workId, setWorkId} = useContext(WorkContext)
     const diff = (start, end) => {
         start = start.split(":");
         end = end.split(":");
@@ -24,21 +21,31 @@ function Work({ work, erase }) {
     };
 
     const getIdHandler = () => {
-       erase(work.id)
-    }
+        deleteW(work.id);
+    };
 
     const getIdUpdateHandler = () => {
-        setWorkId(work.id)
-    }
+        setWorkId(work.id);
+    };
+
     return (
         <tr>
             <td>{work.date}</td>
             <td>{work.company}</td>
             <td>{work.service}</td>
+            <td>{work.description}</td>
             <td>{diff(work.from, work.to)}</td>
-            <td><a href="#/" className="btn btn-secondary" onClick={getIdUpdateHandler}>Redaguoti</a></td>
-            <td><a href="#/" className="btn btn-danger" onClick={getIdHandler}>Šalinti</a></td>
-            <td><Link className={"btn btn-primary"} key={work.id} to={`work/${work.id}`}>Plačiau</Link></td>
+            <td>
+                <button onClick={getIdUpdateHandler}>Edit</button>
+            </td>
+            <td>
+                <button onClick={getIdHandler}>Delete</button>
+            </td>
+            <td>
+                <Link className={"btn btn-primary"} key={work.id} to={`work/${work.id}`}>
+                    Plačiau
+                </Link>
+            </td>
         </tr>
     );
 }

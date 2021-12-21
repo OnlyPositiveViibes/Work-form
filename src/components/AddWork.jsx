@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import { FloatingLabel } from "react-bootstrap";
 import Companies from "./Companies";
 import Services from "./Services";
-import * as services from "../services"
+import * as services from "../services/WorksServices";
 
 function AddWork(props) {
     const [workData, setWorkData] = useState({
@@ -16,11 +16,9 @@ function AddWork(props) {
         to: ""
     });
 
-
     useEffect(() => {
-        props.update && services.showById(item => setWorkData(item), props.update)
-
-    }, [])
+        props.updateId && services.showById(workData => setWorkData(workData), props.updateId);
+    }, [props.updateId]);
 
     const handleChange = e => {
         setWorkData({
@@ -35,8 +33,8 @@ function AddWork(props) {
     };
 
     const updateHandler = () => {
-        props.onUpdateWorkHandler(workData, props.update)
-    }
+        props.onUpdate(props.updateId, workData);
+    };
 
     return (
         <Card>
@@ -50,6 +48,7 @@ function AddWork(props) {
 
                     <FloatingLabel className="mb-3" label="Pasirinkite įmonę">
                         <Form.Select name="company" onChange={handleChange} value={workData.company} aria-label="Floating label select example">
+                            <option></option>
                             <Companies />
                         </Form.Select>
                     </FloatingLabel>
@@ -80,15 +79,20 @@ function AddWork(props) {
                         <Form.Label>Iki:</Form.Label>
                         <Form.Control name="to" onChange={handleChange} value={workData.to} type="time" />
                     </Form.Group>
-                    {(props.update)?
-                    <Button variant="primary" type="button" onClick={updateHandler}>   Redaguoti </Button>:
-                    <Button variant="primary" type="submit">   Saugoti </Button>
 
-                    }
+                    {props.updateId ? (
+                        <Button variant="primary" type="button" onClick={updateHandler}>
+                            Redaguoti
+                        </Button>
+                    ) : (
+                        <Button variant="primary" type="submit">
+                            Saugoti
+                        </Button>
+                    )}
                 </Form>
             </Card.Body>
         </Card>
-    )
+    );
 }
 
 export default AddWork;

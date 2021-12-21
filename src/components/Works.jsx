@@ -3,46 +3,40 @@ import AddWork from "./AddWork";
 import React, { useEffect, useState, useMemo } from "react";
 import Filter from "./Filter";
 import WorksTable from "./WorksTable";
-import * as services from "../services";
+import * as services from "../services/WorksServices";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../services/AuthServices";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export const WorkContext = React.createContext();
 
-function Works  (props)  {
-    const [workId, setWorkId] = useState('');
+function Works(props) {
+    const [user, error, loading] = useAuthState(auth);
+    const navigate = useNavigate();
+
+    const [workId, setWorkId] = useState("");
     const [addWork, setAddWork] = useState(false);
     const [works, setWorks] = useState([]);
     const [searchResult, setSearchResult] = useState([]);
-    const [sortBy, setSortBy] = useState("company_desc")
-    const [sortService, setSortService] = useState("service_asc")
-    
-   
-    const value = useMemo(()=> (
-    {
-        workId,
-        setWorkId
-        
-    }), [workId])
-   
-    console.log(sortBy)
+
+    const [sortBy, setSortBy] = useState("company_desc");
+
+    const value = useMemo(
+        () => ({
+            workId,
+            setWorkId
+        }),
+        [workId]
+    );
+
     function SortServiceHandler() {
-        if (sortService === 'service_asc') {
-            setSortService('service_desc');
-        }
-        else {
-            setSortService('service_asc');
-        }
+        setSortBy(prevState => (prevState === "service_asc" ? "service_desc" : "service_asc"));
     }
 
     function SortCompanyHandler() {
-        if (sortBy === 'company_desc') {
-            setSortBy('company_asc');
-        }
-        else {
-            setSortBy('company_desc');
-        }
+        setSortBy(prevState => (prevState === "company_asc" ? "company_desc" : "company_asc"));
     }
-    
-    
 
     function addWorkHandler() {
         setAddWork(true);
@@ -52,17 +46,17 @@ function Works  (props)  {
         setAddWork(false);
     }
 
+    function onUpdateWorkHandler(id, data) {
+        services.updateWork(id, data);
+        setWorkId("");
+    }
+
     const handleAddWork = data => {
         services.addWork(data);
-        // setWorks((prevData) => [...works, prevData]);
         closeWorkHandler();
         props.status(true);
     };
 
-    const onUpdateWorkHandler = (data, id) => {
-        services.updateWork(id, data)
-        setWorkId('')
-    }
     const handleFilter = criteria => {
         const filteredItems = works.filter(item => {
             return Object.keys(criteria).every(filter => {
@@ -70,19 +64,17 @@ function Works  (props)  {
             });
         });
         setSearchResult(filteredItems);
-        // console.log("filteredItems", filteredItems);
     };
 
     useEffect(() => {
-        services.getAllWorks(setWorks, sortBy,sortService);
-    }, [sortBy, sortService])
-
-    // console.log(workId)
+        if (!user) navigate("/");
+        services.getAllWorks(setWorks, sortBy);
+    }, [sortBy]);
 
     return (
         <>
-            
-            {(addWork || workId) && <AddWork setWorks={handleAddWork} update={workId} onUpdateWorkHandler ={onUpdateWorkHandler}/>}
+            {(addWork || workId) && <AddWork onUpdate={onUpdateWorkHandler} setWorks={handleAddWork} updateId={workId} />}
+
             <Card>
                 <Card.Header>
                     {addWork ? (
@@ -90,9 +82,14 @@ function Works  (props)  {
                             Atšaukti
                         </Button>
                     ) : (
-                        <Button className="btn btn-primary" onClick={addWorkHandler}>
-                            Pridėti
-                        </Button>
+                        <div>
+                            <Button className="btn btn-primary" onClick={addWorkHandler}>
+                                Pridėti Darbą
+                            </Button>
+                            <Link className="btn btn-primary" to={"/companies"}>
+                                Peržiūrėti įmones
+                            </Link>
+                        </div>
                     )}
                 </Card.Header>
 
@@ -103,12 +100,15 @@ function Works  (props)  {
                 <Card.Header>
                     <Filter handleFilter={handleFilter} />
                 </Card.Header>
-               
+                <Card.Body>
                     <WorkContext.Provider value={value}>
-                <WorksTable SortCompanyHandler={SortCompanyHandler} SortServiceHandler={SortServiceHandler} data={searchResult.length ?  searchResult : works} />
-                </WorkContext.Provider>
-
-               
+                        <WorksTable
+                            SortCompanyHandler={SortCompanyHandler}
+                            SortServiceHandler={SortServiceHandler}
+                            data={searchResult.length ? searchResult : works}
+                        />
+                    </WorkContext.Provider>
+                </Card.Body>
             </Card>
         </>
     );

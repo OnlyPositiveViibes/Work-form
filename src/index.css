@@ -10,11 +10,19 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+th button {
+    margin-left: 10px;
+}
+
 .filters form {
     display: flex;
     align-items: center;
 }
 .filters form div,
 .filters form button {
+    margin: 5px;
+}
+.card-header button,
+.card-header a {
     margin: 5px;
 }

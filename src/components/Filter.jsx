@@ -13,22 +13,17 @@ function Filter(props) {
         });
     };
 
-    // const handleSubmit = e => {
-    //     e.preventDefault();
-    //     props.handleFilter(filter);
-    // };
-
-    const resetFilter = () => {
-        setFilter({})
-    }
+    const resetFilterHandler = () => {
+        setFilter({});
+    };
 
     useEffect(() => {
         props.handleFilter(filter);
-    }, [filter])
+    }, [filter]);
 
     return (
         <div className="filters">
-            <Form >
+            <Form>
                 <FormGroup>
                     <FloatingLabel className="mb-3" label="Companies">
                         <Form.Select defaultValue="Company" onChange={handleChange} name="company" aria-label="Floating label select example">
@@ -44,9 +39,12 @@ function Filter(props) {
                     </FloatingLabel>
                 </FormGroup>
                 <FormGroup>
-                    {(Object.keys(filter).length !== 0) &&
-                        <Button type="reset" onClick={resetFilter}>Clear</Button>
-                    }                </FormGroup>
+                    {Object.keys(filter).length !== 0 && (
+                        <Button type="reset" onClick={resetFilterHandler}>
+                            Valyti
+                        </Button>
+                    )}
+                </FormGroup>
             </Form>
         </div>
     );
