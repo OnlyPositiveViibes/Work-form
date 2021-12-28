@@ -1,32 +1,10 @@
 import React, { useContext } from "react";
-import { WorkContext } from "./Works";
 import { Link } from "react-router-dom";
+import diff from "../utilities/timeCalc";
+import { useGlobalContext } from "../context/WorksContext";
 
-function Work({ work, deleteW }) {
-    const { setWorkId } = useContext(WorkContext);
-
-    const diff = (start, end) => {
-        start = start.split(":");
-        end = end.split(":");
-
-        const startDate = new Date(0, 0, 0, start[0], start[1], 0);
-        const endDate = new Date(0, 0, 0, end[0], end[1], 0);
-
-        let diff = endDate.getTime() - startDate.getTime();
-        let hours = Math.floor(diff / 1000 / 60 / 60);
-
-        diff -= hours * 1000 * 60 * 60;
-        const minutes = Math.floor(diff / 1000 / 60);
-        return (hours < 9 ? "0" : "") + hours + ":" + (minutes < 9 ? "0" : "") + minutes;
-    };
-
-    const getIdHandler = () => {
-        deleteW(work.id);
-    };
-
-    const getIdUpdateHandler = () => {
-        setWorkId(work.id);
-    };
+function Work({ work, deleteW, id }) {
+    const { deleteFromFirestore } = useGlobalContext();
 
     return (
         <tr>
@@ -36,10 +14,12 @@ function Work({ work, deleteW }) {
             <td>{work.description}</td>
             <td>{diff(work.from, work.to)}</td>
             <td>
-                <button onClick={getIdUpdateHandler}>Edit</button>
+                <Link type="button" to={`/work/update/${work.id}`}>
+                    Edit
+                </Link>
             </td>
             <td>
-                <button onClick={getIdHandler}>Delete</button>
+                <button onClick={() => deleteFromFirestore(work.id)}>Delete</button>
             </td>
             <td>
                 <Link className={"btn btn-primary"} key={work.id} to={`work/${work.id}`}>

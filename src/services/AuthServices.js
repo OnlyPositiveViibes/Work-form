@@ -31,6 +31,15 @@ const signIn = async (email, password) => {
     }
 };
 
+const resetPassword = async email => {
+    try {
+        await auth.sendPasswordResetEmail(email);
+        alert("Slaptažodžio atkūrimo nuoroda išsiųsta");
+    } catch (error) {
+        console.log(error.message);
+    }
+};
+
 export default firebase;
 
-export { auth, db, register, logout, signIn };
+export { auth, db, register, logout, signIn, resetPassword };

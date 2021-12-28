@@ -7,12 +7,13 @@ const sortOptions = {
     service_desc: { column: "service", direction: "desc" }
 };
 
-export const getAllWorks = (getWorks, sortBy) => {
+export const getAllWorks = (getWorks, user) => {
     //gauti darbus
     firebase
         .firestore()
         .collection("times")
-        .orderBy(sortOptions[sortBy].column, sortOptions[sortBy].direction)
+        .where("uid", "==", user?.uid)
+        // .orderBy(sortOptions[sortBy].column, sortOptions[sortBy].direction)
         .onSnapshot(snapShot => {
             const newWork = snapShot.docs.map(doc => ({
                 id: doc.id,

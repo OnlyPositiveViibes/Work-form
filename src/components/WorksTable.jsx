@@ -3,12 +3,14 @@ import * as services from "../services/WorksServices";
 import Work from "./Work";
 import { Button } from "react-bootstrap";
 import { ArrowDownUp } from "react-bootstrap-icons";
+import { useGlobalContext } from "../context/WorksContext";
 
 const WorksTable = props => {
+    const { worksNew, worksFiltered } = useGlobalContext();
+
     const deleteItemHandler = id => {
         services.deleteWork(id);
     };
-
     return (
         <Table striped bordered hover>
             <thead>
@@ -33,9 +35,9 @@ const WorksTable = props => {
                 </tr>
             </thead>
             <tbody>
-                {props.data.map((w, i) => (
-                    <Work key={"workid" + i} work={w} deleteW={deleteItemHandler} />
-                ))}
+                {worksFiltered.length
+                    ? worksFiltered.map((w, i) => <Work key={"workid" + i} work={w} deleteW={deleteItemHandler} />)
+                    : worksNew.map((w, i) => <Work key={"workid" + i} work={w} deleteW={deleteItemHandler} />)}
             </tbody>
         </Table>
     );

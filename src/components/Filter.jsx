@@ -1,26 +1,26 @@
-import { useEffect, useState } from "react";
 import { Form, Button, FloatingLabel, FormGroup } from "react-bootstrap";
 import Companies from "./Companies";
 import Services from "./Services";
+import { useGlobalContext } from "../context/WorksContext";
+import { useEffect } from "react";
 
-function Filter(props) {
-    const [filter, setFilter] = useState({});
+function Filter() {
+    const { handleFilter, filter, worksFiltered } = useGlobalContext();
 
     const handleChange = e => {
-        setFilter({
+        handleFilter({
             ...filter,
             [e.target.name]: e.target.value
         });
     };
 
-    const resetFilterHandler = () => {
-        setFilter({});
-    };
-
     useEffect(() => {
-        props.handleFilter(filter);
-    }, [filter]);
+        if (!worksFiltered.length) {
+            handleFilter({});
+        }
+    }, [worksFiltered]);
 
+    const resetFilterHandler = () => handleFilter({});
     return (
         <div className="filters">
             <Form>

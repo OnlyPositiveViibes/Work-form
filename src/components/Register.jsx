@@ -14,7 +14,7 @@ const Register = () => {
 
     useEffect(() => {
         if (loading) return;
-        if (user) navigate("/works");
+        if (user) navigate("works");
     }, [user, loading]);
 
     const submitHandler = e => {

@@ -8,6 +8,9 @@ import WorkById from "./components/WorkById";
 import CompaniesTable from "./components/CompaniesTable";
 import Register from "./components/Register";
 import Login from "./components/Login";
+import Reset from "./components/Reset";
+import { AppProvider } from "./context/WorksContext";
+import AddWork from "./components/AddWork";
 
 function App() {
     const [message, setMessage] = useState("");
@@ -25,15 +28,19 @@ function App() {
     return (
         <div className="container">
             <Router>
-                <Header />
-                {message && <Alert>{message}</Alert>}
-                <Routes>
-                    <Route exact path="/" element={<Login />} />
-                    <Route exact path="/register" element={<Register />} />
-                    <Route exact path="/works" element={<Works status={setMessageHandler} />} />
-                    <Route exactpath="/companies" element={<CompaniesTable />} />
-                    <Route path="/work/:id" element={<WorkById />} />
-                </Routes>
+                <AppProvider>
+                    <Header />
+                    {message && <Alert>{message}</Alert>}
+                    <Routes>
+                        <Route exact path="/" element={<Login />} />
+                        <Route exact path="/register" element={<Register />} />
+                        <Route exact path="/works" element={<Works status={setMessageHandler} />} />
+                        <Route exact path="/companies" element={<CompaniesTable />} />
+                        <Route exact path="/reset" element={<Reset />} />
+                        <Route path="/work/:id" element={<WorkById />} />
+                        <Route path="/work/update/:id" element={<AddWork />} />
+                    </Routes>
+                </AppProvider>
             </Router>
         </div>
     );
